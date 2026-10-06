@@ -3,6 +3,7 @@
 from uuid import UUID
 
 from grpc import Channel
+from v1.common_pb2 import Empty
 from v1.courses_pb2 import (
     CreateCourseRequest,
     DeleteCourseRequest,
@@ -13,7 +14,6 @@ from v1.courses_pb2 import (
     UpdateCourseRequest,
 )
 from v1.courses_pb2_grpc import CoursesServiceStub
-from v1.common_pb2 import Empty
 
 from tests.clients.client import GRPCTestClient
 
