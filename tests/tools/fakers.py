@@ -1,5 +1,6 @@
 from faker import Faker
 
+
 class Fake:
     def __init__(self, faker: Faker):
 
@@ -19,5 +20,6 @@ class Fake:
 
     def middle_name(self) -> str:
         return self.faker.first_name()
+
 
 fake = Fake(faker=Faker())

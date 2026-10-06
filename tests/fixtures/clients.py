@@ -1,5 +1,5 @@
 import pytest
-from grpc import insecure_channel, Channel
+from grpc import Channel, insecure_channel
 
 from tests.clients.authentication.authentication_client import AuthenticationClient
 from tests.clients.courses.courses_client import CoursesClient
