@@ -15,7 +15,7 @@ from v1.users_pb2_grpc import UsersServiceStub
 from tests.clients.client import GRPCTestClient
 
 
-class UsersGRPCTestClient(GRPCTestClient):
+class UsersClient(GRPCTestClient):
     """Предоставляет методы создания, получения, обновления и удаления пользователей."""
 
     def __init__(self, channel: Channel):

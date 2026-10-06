@@ -18,7 +18,7 @@ from v1.courses_pb2_grpc import CoursesServiceStub
 from tests.clients.client import GRPCTestClient
 
 
-class CoursesGRPCTestClient(GRPCTestClient):
+class CoursesClient(GRPCTestClient):
     """Предоставляет методы создания, получения, обновления и удаления курсов."""
 
     def __init__(self, channel: Channel):
