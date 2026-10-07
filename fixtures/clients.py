@@ -1,7 +1,7 @@
 import pytest
 from grpc import Channel, insecure_channel
 
-from clients import UsersClient
+from clients.users.users_client import UsersClient
 from clients.authentication.authentication_client import AuthenticationClient
 from clients.courses.courses_client import CoursesClient
 
