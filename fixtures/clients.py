@@ -1,9 +1,10 @@
 import pytest
 from grpc import Channel, insecure_channel
 
-from clients.users.users_client import UsersClient
 from clients.authentication.authentication_client import AuthenticationClient
 from clients.courses.courses_client import CoursesClient
+from clients.users.users_client import UsersClient
+from fixtures.authentication import AuthMetadata
 
 
 @pytest.fixture
@@ -16,8 +17,8 @@ def grpc_channel():
 
 
 @pytest.fixture
-def courses_client(grpc_channel: Channel):
-    return CoursesClient(channel=grpc_channel)
+def courses_client(grpc_channel: Channel, auth_metadata: AuthMetadata):
+    return CoursesClient(channel=grpc_channel, metadata=auth_metadata.metadata)
 
 
 @pytest.fixture

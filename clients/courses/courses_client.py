@@ -16,18 +16,19 @@ from v1.courses_pb2 import (
 from v1.courses_pb2_grpc import CoursesServiceStub
 
 from clients.client import GRPCTestClient
+from clients.types import GRPCMetadata
 
 
 class CoursesClient(GRPCTestClient):
     """Предоставляет методы создания, получения, обновления и удаления курсов."""
 
-    def __init__(self, channel: Channel):
+    def __init__(self, channel: Channel, metadata: GRPCMetadata):
         """Инициализирует клиент и заглушку сервиса курсов.
 
         Args:
             channel: Канал для выполнения gRPC-запросов.
         """
-        super().__init__(channel)
+        super().__init__(channel, metadata)
 
         self.stub = CoursesServiceStub(self.channel)
 
@@ -41,7 +42,7 @@ class CoursesClient(GRPCTestClient):
             Ответ сервиса с созданным курсом.
         """
 
-        return self.stub.CreateCourse(request)
+        return self.call(self.stub.CreateCourse, request)
 
     def create_course(
         self,
@@ -90,7 +91,7 @@ class CoursesClient(GRPCTestClient):
             Ответ сервиса с запрошенным курсом.
         """
 
-        return self.stub.GetCourse(request)
+        return self.call(self.stub.GetCourse, request)
 
     def get_course(self, course_id: UUID) -> GetCourseResponse:
         """Получает курс по его идентификатору.
@@ -117,7 +118,7 @@ class CoursesClient(GRPCTestClient):
             Ответ сервиса со списком курсов.
         """
 
-        return self.stub.ListCourses(request)
+        return self.call(self.stub.ListCourses, request)
 
     def list_courses(self, user_id: UUID) -> ListCoursesResponse:
         """Получает список курсов для указанного пользователя.
@@ -144,7 +145,7 @@ class CoursesClient(GRPCTestClient):
             Ответ сервиса с обновлённым курсом.
         """
 
-        return self.stub.UpdateCourse(request)
+        return self.call(self.stub.UpdateCourse, request)
 
     def update_course(
         self,
@@ -191,7 +192,7 @@ class CoursesClient(GRPCTestClient):
             Пустой ответ сервиса после удаления курса.
         """
 
-        return self.stub.DeleteCourse(request)
+        return self.call(self.stub.DeleteCourse, request)
 
     def delete_course(self, course_id: UUID) -> Empty:
         """Удаляет курс по его идентификатору.
