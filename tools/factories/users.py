@@ -1,14 +1,13 @@
 from typing import Callable
 
-from faker import Faker
 from v1.users_pb2 import CreateUserRequest
 
-from tools.fakers import Fake
+from tools.fakers import Fake, fake
 
 
 class UserFactory:
-    def __init__(self, fake: Fake):
-        self.fake = fake
+    def __init__(self, fake_generator: Fake):
+        self.fake = fake_generator
 
     @staticmethod
     def _resolve(value: str | None, default_factory: Callable[[], str]) -> str:
@@ -34,4 +33,4 @@ class UserFactory:
         return request
 
 
-user_factory = UserFactory(fake=Fake(faker=Faker()))
+user_factory = UserFactory(fake_generator=fake)
