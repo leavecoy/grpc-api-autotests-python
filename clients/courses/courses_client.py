@@ -15,7 +15,7 @@ from v1.courses_pb2 import (
 )
 from v1.courses_pb2_grpc import CoursesServiceStub
 
-from tests.clients.client import GRPCTestClient
+from clients.client import GRPCTestClient
 
 
 class CoursesClient(GRPCTestClient):

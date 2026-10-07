@@ -4,7 +4,7 @@ from grpc import Channel
 from v1.authentication_pb2 import LoginRequest, LoginResponse, RefreshRequest
 from v1.authentication_pb2_grpc import AuthenticationServiceStub
 
-from tests.clients.client import GRPCTestClient
+from clients.client import GRPCTestClient
 
 
 class AuthenticationClient(GRPCTestClient):

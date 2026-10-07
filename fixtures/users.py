@@ -1,6 +1,7 @@
 from pydantic import BaseModel, ConfigDict
 from v1.users_pb2 import CreateUserRequest, GetUserResponse
 
+
 class UserFixture(BaseModel):
     model_config = ConfigDict(arbitrary_types_allowed=True)
 

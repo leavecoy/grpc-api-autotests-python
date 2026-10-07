@@ -12,7 +12,7 @@ from v1.users_pb2 import (
 )
 from v1.users_pb2_grpc import UsersServiceStub
 
-from tests.clients.client import GRPCTestClient
+from clients.client import GRPCTestClient
 
 
 class UsersClient(GRPCTestClient):
