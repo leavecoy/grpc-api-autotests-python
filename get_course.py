@@ -14,6 +14,7 @@ password = "123456qQ!"
 
 channel = grpc.insecure_channel("localhost:9000")
 
+
 users_stub = UsersServiceStub(channel)
 
 create_user_request = CreateUserRequest(
