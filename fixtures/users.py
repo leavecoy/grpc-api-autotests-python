@@ -1,7 +1,7 @@
 import pytest
 
 from clients.users.users_client import UsersClient
-from models.users import UserFixture
+from clients.users.users_models import UserFixture
 from tools.factories.users import user_factory
 
 

@@ -1,8 +1,8 @@
 import pytest
 
 from clients.authentication.authentication_client import AuthenticationClient
+from clients.authentication.authentication_models import AuthMetadata, Token
 from fixtures.users import UserFixture
-from models.authentication import AuthMetadata, Token
 
 
 @pytest.fixture

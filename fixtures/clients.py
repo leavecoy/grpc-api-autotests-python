@@ -2,9 +2,9 @@ import pytest
 from grpc import Channel, insecure_channel
 
 from clients.authentication.authentication_client import AuthenticationClient
+from clients.authentication.authentication_models import AuthMetadata
 from clients.courses.courses_client import CoursesClient
 from clients.users.users_client import UsersClient
-from fixtures.authentication import AuthMetadata
 
 
 @pytest.fixture

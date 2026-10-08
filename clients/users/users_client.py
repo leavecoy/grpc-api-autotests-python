@@ -3,6 +3,8 @@
 from uuid import UUID
 
 from grpc import Channel
+
+from clients.types import GRPCMetadata
 from v1.common_pb2 import Empty
 from v1.users_pb2 import (
     CreateUserRequest,
@@ -18,13 +20,13 @@ from clients.client import GRPCTestClient
 class UsersClient(GRPCTestClient):
     """Предоставляет методы создания, получения, обновления и удаления пользователей."""
 
-    def __init__(self, channel: Channel):
+    def __init__(self, channel: Channel, metadata:GRPCMetadata | None = None):
         """Инициализирует клиент и заглушку сервиса пользователей.
 
         Args:
             channel: Канал для выполнения gRPC-запросов.
         """
-        super().__init__(channel)
+        super().__init__(channel, metadata)
 
         self.stub = UsersServiceStub(self.channel)
 
@@ -82,7 +84,7 @@ class UsersClient(GRPCTestClient):
             Ответ сервиса с обновлённым пользователем.
         """
 
-        return self.stub.UpdateUser(request)
+        return self.call(self.stub.UpdateUser, request)
 
     def update_user(
         self,
@@ -125,7 +127,7 @@ class UsersClient(GRPCTestClient):
             Ответ сервиса с запрошенным пользователем.
         """
 
-        return self.stub.GetUser(request)
+        return self.call(self.stub.GetUser, request)
 
     def get_user(self, user_id: UUID) -> GetUserResponse:
         """Получает пользователя по его идентификатору.
@@ -152,7 +154,7 @@ class UsersClient(GRPCTestClient):
             Ответ сервиса с текущим пользователем.
         """
 
-        return self.stub.GetMe(request)
+        return self.call(self.stub.GetMe, request)
 
     def get_me(self) -> GetUserResponse:
         """Формирует запрос и получает текущего пользователя.
@@ -175,7 +177,7 @@ class UsersClient(GRPCTestClient):
             Пустой ответ сервиса после удаления пользователя.
         """
 
-        return self.stub.DeleteUser(request)
+        return self.call(self.stub.DeleteUser, request)
 
     def delete_user(self, user_id: UUID) -> Empty:
         """Удаляет пользователя по его идентификатору.
