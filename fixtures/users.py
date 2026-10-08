@@ -6,8 +6,8 @@ from tools.factories.users import user_factory
 
 
 @pytest.fixture
-def function_user(users_client: UsersClient) -> UserFixture:
+def function_user(public_users_client: UsersClient) -> UserFixture:
     request = user_factory.create_user_request()
-    response = users_client.create_user_api(request)
+    response = public_users_client.create_user_api(request)
 
     return UserFixture(request=request, response=response)

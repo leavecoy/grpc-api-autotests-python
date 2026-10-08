@@ -3,8 +3,6 @@
 from uuid import UUID
 
 from grpc import Channel
-
-from clients.types import GRPCMetadata
 from v1.common_pb2 import Empty
 from v1.users_pb2 import (
     CreateUserRequest,
@@ -15,12 +13,13 @@ from v1.users_pb2 import (
 from v1.users_pb2_grpc import UsersServiceStub
 
 from clients.client import GRPCTestClient
+from clients.types import GRPCMetadata
 
 
 class UsersClient(GRPCTestClient):
     """Предоставляет методы создания, получения, обновления и удаления пользователей."""
 
-    def __init__(self, channel: Channel, metadata:GRPCMetadata | None = None):
+    def __init__(self, channel: Channel, metadata: GRPCMetadata | None = None):
         """Инициализирует клиент и заглушку сервиса пользователей.
 
         Args:
