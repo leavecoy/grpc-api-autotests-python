@@ -1,3 +1,5 @@
+"""Пример создания пользователя, входа и запроса курса по случайному идентификатору."""
+
 import grpc
 from faker import Faker
 from v1.authentication_pb2 import LoginRequest

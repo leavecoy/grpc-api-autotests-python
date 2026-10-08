@@ -1,17 +1,34 @@
+"""Тестовые сценарии использования фикстур."""
+
 from clients.courses.courses_client import CoursesClient
 from fixtures.authentication import AuthMetadata
 from fixtures.users import UserFixture
 
 
 def test_function_user(function_user: UserFixture):
+    """Выводит данные пользователя, созданного фикстурой.
+
+    Args:
+        function_user: Данные созданного тестового пользователя.
+    """
     print(function_user)
 
 
 def test_authorized_user(auth_metadata: AuthMetadata):
+    """Выводит метаданные аутентификации тестового пользователя.
+
+    Args:
+        auth_metadata: Метаданные аутентификации тестового пользователя.
+    """
     print(auth_metadata.metadata)
 
 
 def test_courses_client(courses_client: CoursesClient):
+    """Вызывает создание курса через клиент из фикстуры.
+
+    Args:
+        courses_client: Клиент сервиса курсов с метаданными аутентификации.
+    """
     courses_client.create_course(
         title="title",
         description="desc",

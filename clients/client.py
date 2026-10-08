@@ -18,4 +18,13 @@ class GRPCTestClient:
         self.metadata = metadata
 
     def call(self, rpc, request):
+        """Вызывает RPC с метаданными клиента.
+
+        Args:
+            rpc: Метод gRPC-сервиса для вызова.
+            request: Protobuf-запрос для передачи сервису.
+
+        Returns:
+            Ответ вызываемого метода сервиса.
+        """
         return rpc(request, metadata=self.metadata)
