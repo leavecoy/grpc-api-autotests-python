@@ -70,7 +70,7 @@ class Fake:
         Returns:
             Имя файла с расширением .png.
         """
-        return f"{self.faker.uuid4}.png"
+        return f"{self.faker.uuid4()}.png"
 
 
 fake = Fake(faker=Faker())
