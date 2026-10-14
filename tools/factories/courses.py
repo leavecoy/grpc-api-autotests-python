@@ -52,21 +52,11 @@ class CoursesFactory(BaseFactory):
             min_score=self._resolve(min_score, fake.min_score),
             description=self._resolve(description, fake.text),
             estimated_time=self._resolve(estimated_time, fake.estimated_time),
-            preview_file_id=self._resolve(preview_file_id, fake.uuid),
-            created_by_user_id=self._resolve(created_by_user_id, fake.uuid),
+            preview_file_id=str(self._resolve(preview_file_id, fake.uuid)),
+            created_by_user_id=str(self._resolve(created_by_user_id, fake.uuid)),
         )
 
         return request
 
 
 courses_factory = CoursesFactory(fake_generator=fake)
-
-"""
-  string title = 1;
-  optional int32 max_score = 2;
-  optional int32 min_score = 3;
-  string description = 4;
-  optional string estimated_time = 5;
-  string preview_file_id = 6;
-  string created_by_user_id = 7;
-"""
