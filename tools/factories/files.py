@@ -20,19 +20,6 @@ class FilesFactory(BaseFactory):
         super().__init__(fake_generator)
         self.fake = fake_generator
 
-    @staticmethod
-    def _file_to_bytes(path: Path):
-        """Читает содержимое локального файла в байтах.
-
-        Args:
-            path: Путь к файлу для чтения.
-
-        Returns:
-            Содержимое файла в байтах.
-        """
-        content = Path(path).read_bytes()
-        return content
-
     def create_file_request(
         self,
         filename: str | None = None,
@@ -55,7 +42,7 @@ class FilesFactory(BaseFactory):
         directory_path = directory if directory is not None else "testdata"
 
         request = CreateFileRequest(
-            filename=self._resolve(filename, self.fake.text),
+            filename=self._resolve(f"{filename}.png", self.fake.filename),
             directory=directory_path,
             content=file_path.read_bytes()
         )

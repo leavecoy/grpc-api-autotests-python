@@ -64,5 +64,8 @@ class Fake:
 
         return self.faker.text(max_nb_chars=10)
 
+    def filename(self) -> str:
+        return f"{self.faker.text(max_nb_chars=5)}.png"
+
 
 fake = Fake(faker=Faker())
