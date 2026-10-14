@@ -1,13 +1,12 @@
 """Фабрика запросов на создание пользователей."""
 
-from typing import Callable
-
 from v1.users_pb2 import CreateUserRequest
 
+from tools.factories.base_factory import BaseFactory
 from tools.fakers import Fake, fake
 
 
-class UserFactory:
+class UserFactory(BaseFactory):
     """Формирует запросы на создание пользователей с тестовыми данными."""
 
     def __init__(self, fake_generator: Fake):
@@ -16,20 +15,8 @@ class UserFactory:
         Args:
             fake_generator: Генератор случайных данных пользователя.
         """
+        super().__init__(fake_generator)
         self.fake = fake_generator
-
-    @staticmethod
-    def _resolve(value: str | None, default_factory: Callable[[], str]) -> str:
-        """Подставляет сгенерированное значение, если передано None.
-
-        Args:
-            value: Заданное значение или None.
-            default_factory: Функция генерации значения по умолчанию.
-
-        Returns:
-            Переданное значение или результат вызова генератора.
-        """
-        return default_factory() if value is None else value
 
     def create_user_request(
         self,
@@ -63,4 +50,4 @@ class UserFactory:
         return request
 
 
-user_factory = UserFactory(fake_generator=fake)
+users_factory = UserFactory(fake_generator=fake)
