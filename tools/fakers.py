@@ -72,5 +72,37 @@ class Fake:
         """
         return f"{self.faker.uuid4()}.png"
 
+    def min_score(self) -> int:
+        """Генерирует минимальный балл.
+
+        Returns:
+            Случайное целое число от 0 до 10 включительно.
+        """
+        return self.faker.random_int(min=0, max=10)
+
+    def max_score(self) -> int:
+        """Генерирует максимальный балл.
+
+        Returns:
+            Случайное целое число от 11 до 20 включительно.
+        """
+        return self.faker.random_int(min=11, max=20)
+
+    def estimated_time(self) -> str:
+        """Генерирует ожидаемое время прохождения.
+
+        Returns:
+            Строка с числом от 1 до 20 и единицей времени days, weeks или months.
+        """
+        return f"{self.faker.random_int(min=1, max=20)} {self.faker.random_element(elements=["days", "weeks","months"])}"
+
+    def uuid(self) -> str:
+        """Генерирует случайный UUID версии 4.
+
+        Returns:
+            Строковое представление UUID.
+        """
+        return self.faker.uuid4()
+
 
 fake = Fake(faker=Faker())

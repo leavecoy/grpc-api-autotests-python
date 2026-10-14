@@ -1,10 +1,10 @@
 """Фикстуры для создания тестовых файлов."""
 
 import pytest
-from tools.factories.files import files_factory
 
 from clients.files.files_client import FilesClient
 from clients.files.files_models import FileFixture
+from tools.factories.files import files_factory
 
 
 @pytest.fixture

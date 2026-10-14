@@ -38,15 +38,20 @@ class FilesFactory(BaseFactory):
             Protobuf-запрос на создание файла.
         """
 
-        file_path = testfile_path if testfile_path is not None else Path("tools/testdata/test_image.png")
+        file_path = (
+            testfile_path
+            if testfile_path is not None
+            else Path("tools/testdata/test_image.png")
+        )
         directory_path = directory if directory is not None else "testdata"
 
         request = CreateFileRequest(
             filename=self._resolve(filename, self.fake.filename),
             directory=directory_path,
-            content=file_path.read_bytes()
+            content=file_path.read_bytes(),
         )
 
         return request
+
 
 files_factory = FilesFactory(fake_generator=fake)

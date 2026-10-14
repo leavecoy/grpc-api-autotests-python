@@ -36,10 +36,19 @@ def test_authorized_user(auth_metadata: AuthMetadata):
 #         created_by_user_id="7f6e0b47-0e7c-4f7b-8e44-7c3f1d0d7f2a",
 #     )
 
+
 def test_function_file(function_file):
-    """Выводит запрос на создание файла и ответ сервиса из фикстуры.
+    """Выводит ответ сервиса с файлом, созданным фикстурой.
 
     Args:
         function_file: Данные созданного тестового файла.
     """
-    print(function_file.request, function_file.response)
+    print(function_file.response)
+
+def test_function_course(function_course):
+    """Выводит ответ сервиса с курсом, созданным фикстурой.
+
+    Args:
+        function_course: Данные созданного тестового курса.
+    """
+    print(function_course.response)

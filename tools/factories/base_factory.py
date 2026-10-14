@@ -17,7 +17,7 @@ class BaseFactory:
         self.fake = fake_generator
 
     @staticmethod
-    def _resolve(value: str | None, default_factory: Callable[[], str]) -> str:
+    def _resolve(value: Any | None, default_factory: Callable[[], Any]) -> Any:
         """Подставляет сгенерированное значение, если передано None.
 
         Args:
