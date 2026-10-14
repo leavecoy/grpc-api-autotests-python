@@ -27,6 +27,7 @@ class CoursesClient(GRPCTestClient):
 
         Args:
             channel: Канал для выполнения gRPC-запросов.
+            metadata: Метаданные для выполнения gRPC-запросов.
         """
         super().__init__(channel, metadata)
 

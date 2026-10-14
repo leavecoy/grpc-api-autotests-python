@@ -6,13 +6,15 @@ from clients.types import GRPCMetadata
 
 
 class GRPCTestClient:
-    """Хранит gRPC-канал для обращения к сервисам в тестах."""
+    """Выполняет вызовы gRPC-сервисов с каналом и метаданными клиента."""
 
     def __init__(self, channel: Channel, metadata: GRPCMetadata | None = None):
-        """Инициализирует клиент с переданным gRPC-каналом.
+        """Инициализирует клиент с переданными gRPC-каналом и метаданными.
 
         Args:
             channel: Канал для выполнения gRPC-запросов.
+            metadata: Метаданные для выполнения gRPC-запросов или None,
+                если дополнительные метаданные не нужны.
         """
         self.channel = channel
         self.metadata = metadata

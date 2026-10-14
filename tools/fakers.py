@@ -65,7 +65,12 @@ class Fake:
         return self.faker.text(max_nb_chars=10)
 
     def filename(self) -> str:
-        return f"{self.faker.text(max_nb_chars=5)}.png"
+        """Формирует имя файла с расширением PNG.
+
+        Returns:
+            Имя файла с расширением .png.
+        """
+        return f"{self.faker.uuid4}.png"
 
 
 fake = Fake(faker=Faker())

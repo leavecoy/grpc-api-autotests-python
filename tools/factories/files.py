@@ -42,7 +42,7 @@ class FilesFactory(BaseFactory):
         directory_path = directory if directory is not None else "testdata"
 
         request = CreateFileRequest(
-            filename=self._resolve(f"{filename}.png", self.fake.filename),
+            filename=self._resolve(filename, self.fake.filename),
             directory=directory_path,
             content=file_path.read_bytes()
         )
