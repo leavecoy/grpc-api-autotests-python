@@ -27,8 +27,8 @@ class CoursesFactory(BaseFactory):
         min_score: int | None = None,
         description: str | None = None,
         estimated_time: str | None = None,
-        preview_file_id: UUID | None = None,
-        created_by_user_id: UUID | None = None,
+        preview_file_id: UUID | str | None = None,
+        created_by_user_id: UUID | str | None = None,
     ) -> CreateCourseRequest:
         """Формирует запрос на создание курса с тестовыми данными.
 
@@ -52,8 +52,8 @@ class CoursesFactory(BaseFactory):
             min_score=self._resolve(min_score, fake.min_score),
             description=self._resolve(description, fake.text),
             estimated_time=self._resolve(estimated_time, fake.estimated_time),
-            preview_file_id=self._resolve(str(preview_file_id), fake.uuid),
-            created_by_user_id=self._resolve(str(created_by_user_id), fake.uuid),
+            preview_file_id=self._resolve(preview_file_id, fake.uuid),
+            created_by_user_id=self._resolve(created_by_user_id, fake.uuid),
         )
 
         return request
