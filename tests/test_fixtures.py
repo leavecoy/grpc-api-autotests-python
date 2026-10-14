@@ -45,6 +45,7 @@ def test_function_file(function_file):
     """
     print(function_file.response)
 
+
 def test_function_course(function_course):
     """Выводит ответ сервиса с курсом, созданным фикстурой.
 
@@ -52,3 +53,13 @@ def test_function_course(function_course):
         function_course: Данные созданного тестового курса.
     """
     print(function_course.response)
+
+
+def test_function_exercise(function_exercise):
+    """Выводит ответ сервиса с упражнением, созданным фикстурой.
+
+    Args:
+        function_exercise: Данные созданного тестового упражнения.
+    """
+
+    print(function_exercise.response)

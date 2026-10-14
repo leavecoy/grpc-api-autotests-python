@@ -88,6 +88,14 @@ class Fake:
         """
         return self.faker.random_int(min=11, max=20)
 
+    def integer(self) -> int:
+        """Генерирует случайное целое число.
+
+        Returns:
+            Случайное целое число от 0 до 100 включительно.
+        """
+        return self.faker.random_int(min=0, max=100)
+
     def estimated_time(self) -> str:
         """Генерирует ожидаемое время прохождения.
 
