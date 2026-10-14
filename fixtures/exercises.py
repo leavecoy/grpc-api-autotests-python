@@ -1,13 +1,14 @@
 """Фикстуры для создания тестовых упражнений и их удаления после тестов."""
 
+from typing import Any, Generator
+
 import pytest
+from v1.exercises_pb2 import DeleteExerciseRequest
 
 from clients.courses.courses_models import CourseFixture
 from clients.exercises.exercises_client import ExercisesClient
 from clients.exercises.exercises_models import ExerciseFixture
 from tools.factories.exercises import exercises_factory
-from typing import Any, Generator
-from v1.exercises_pb2 import DeleteExerciseRequest
 
 
 @pytest.fixture
