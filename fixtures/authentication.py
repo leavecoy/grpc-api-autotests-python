@@ -4,7 +4,7 @@ import pytest
 
 from clients.authentication.authentication_client import AuthenticationClient
 from clients.authentication.authentication_models import AuthMetadata, Token
-from fixtures.users import UserFixture
+from clients.users.users_models import UserFixture
 
 
 @pytest.fixture
