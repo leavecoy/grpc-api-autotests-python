@@ -128,7 +128,6 @@ def assert_list_courses_response(
         assert_course(actual_course, expected_course)
 
 
-
 def assert_update_course_response(
     request: UpdateCourseRequest, response: GetCourseResponse, previous_course: Course
 ):
@@ -156,6 +155,7 @@ def assert_update_course_response(
         expected=expected_course,
         name="course",
     )
+
 
 def assert_delete_course_response(response: Empty):
     """Проверяет тип Empty у ответа на удаление курса.
