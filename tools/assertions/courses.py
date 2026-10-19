@@ -62,10 +62,17 @@ def assert_list_courses_response(
     assert len(response.courses) == len(expected_courses)
 
     for i in range(len(response.courses)):
-        assert_equal(response.courses[i].id, request.user_id, "user_id")
+        assert_equal(response.courses[i].created_by_user.id, request.user_id, "user_id")
 
-    for actual_course, expected_course in response.courses, expected_courses:
-        assert_course(actual_course, expected_course)
+    courses = 0
+
+    for actual_course in response.courses:
+        for expected_course in expected_courses:
+            if actual_course.id == expected_course.id:
+                assert_course(actual_course, expected_course)
+                courses += 1
+
+    assert courses == len(expected_courses)
 
 
 def assert_update_course_response(
@@ -73,13 +80,23 @@ def assert_update_course_response(
 ):
 
     assert_equal(response.course.id, request.id, "id")
-    assert_equal(response.course.title, request.title, "title")
-    assert_equal(response.course.max_score, request.max_score, "max_score")
-    assert_equal(response.course.min_score, request.min_score, "min_score")
-    assert_equal(response.course.description, request.description, "description")
-    assert_equal(
-        response.course.estimated_time, request.estimated_time, "estimated_time"
-    )
+
+    if request.HasField("title"):
+        assert_equal(response.course.title, request.title, "title")
+
+    if request.HasField("max_score"):
+        assert_equal(response.course.max_score, request.max_score, "max_score")
+
+    if request.HasField("min_score"):
+        assert_equal(response.course.min_score, request.min_score, "min_score")
+
+    if request.HasField("description"):
+        assert_equal(response.course.description, request.description, "description")
+
+    if request.HasField("description"):
+        assert_equal(
+            response.course.estimated_time, request.estimated_time, "estimated_time"
+        )
 
 
 def assert_delete_course_response(response: Empty):

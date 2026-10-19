@@ -23,7 +23,9 @@ def assert_length(actual: Sized, expected_length: int, name: str):
 
 
 def assert_is_empty(actual: Any, name: str):
-    assert actual is Empty, f"Некорректное значение f{name}. Ожидался Empty-объект."
+    assert isinstance(
+        actual, Empty
+    ), f"Некорректный тип f{name}: ожидается объект класса Empty."
 
 
 def assert_not_empty(actual: Any, name: str):
