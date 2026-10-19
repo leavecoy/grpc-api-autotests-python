@@ -8,7 +8,12 @@ from v1.courses_pb2 import (
     UpdateCourseRequest,
 )
 
-from tools.assertions.base import assert_equal, assert_is_empty, assert_not_empty
+from tools.assertions.base import (
+    assert_equal,
+    assert_is_empty,
+    assert_length,
+    assert_not_empty,
+)
 
 
 def assert_course(actual: Course, expected: Course):
@@ -61,43 +66,37 @@ def assert_list_courses_response(
 ):
     assert len(response.courses) == len(expected_courses)
 
-    for i in range(len(response.courses)):
-        assert_equal(response.courses[i].created_by_user.id, request.user_id, "user_id")
+    actual_by_id = {course.id: course for course in response.courses}
+    expected_by_id = {course.id: course for course in expected_courses}
 
-    courses = 0
+    assert_length(actual_by_id.keys(), len(response.courses), "actual courses count")
+    assert_length(
+        expected_by_id.keys(), len(expected_courses), "expected courses count"
+    )
+
+    assert_equal(actual_by_id.keys(), expected_by_id.keys(), "courses id's")
 
     for actual_course in response.courses:
-        for expected_course in expected_courses:
-            if actual_course.id == expected_course.id:
-                assert_course(actual_course, expected_course)
-                courses += 1
+        assert_equal(actual_course.created_by_user.id, request.user_id, "user_id")
+        expected_course = expected_by_id[actual_course.id]
+        assert_course(actual_course, expected_course)
 
-    assert courses == len(expected_courses)
 
 
 def assert_update_course_response(
-    request: UpdateCourseRequest, response: GetCourseResponse
+    request: UpdateCourseRequest, response: GetCourseResponse, previous_course: Course
 ):
+    expected_course = Course()
+    expected_course.CopyFrom(previous_course)
 
-    assert_equal(response.course.id, request.id, "id")
+    for field, value in request.ListFields():
+        setattr(expected_course, field.name, value)
 
-    if request.HasField("title"):
-        assert_equal(response.course.title, request.title, "title")
-
-    if request.HasField("max_score"):
-        assert_equal(response.course.max_score, request.max_score, "max_score")
-
-    if request.HasField("min_score"):
-        assert_equal(response.course.min_score, request.min_score, "min_score")
-
-    if request.HasField("description"):
-        assert_equal(response.course.description, request.description, "description")
-
-    if request.HasField("description"):
-        assert_equal(
-            response.course.estimated_time, request.estimated_time, "estimated_time"
-        )
-
+    assert_equal(
+        actual=response.course,
+        expected=expected_course,
+        name="course",
+    )
 
 def assert_delete_course_response(response: Empty):
     assert_is_empty(response, "response")
