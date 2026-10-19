@@ -1,3 +1,5 @@
+"""Проверки данных курсов и ответов gRPC-сервиса курсов."""
+
 from v1.common_pb2 import Course, Empty
 from v1.courses_pb2 import (
     CreateCourseRequest,
@@ -17,6 +19,15 @@ from tools.assertions.base import (
 
 
 def assert_course(actual: Course, expected: Course):
+    """Сравнивает поля курса, включая сообщения файла превью и создателя.
+
+    Args:
+        actual: Фактические данные курса.
+        expected: Ожидаемые данные курса.
+
+    Raises:
+        AssertionError: Если хотя бы одно из проверяемых полей отличается.
+    """
 
     assert_equal(actual.id, expected.id, "id")
     assert_equal(actual.title, expected.title, "title")
@@ -31,6 +42,17 @@ def assert_course(actual: Course, expected: Course):
 def assert_create_course_response(
     request: CreateCourseRequest, response: GetCourseResponse
 ):
+    """Проверяет непустой ID созданного курса и соответствие данных запросу.
+
+    Для файла превью и создателя сравниваются только их идентификаторы.
+
+    Args:
+        request: Отправленный запрос на создание курса.
+        response: Ответ сервиса с созданным курсом.
+
+    Raises:
+        AssertionError: Если ID курса пуст или данные не соответствуют запросу.
+    """
 
     assert_not_empty(response.course.id, "id")
 
@@ -54,6 +76,16 @@ def assert_create_course_response(
 def assert_get_course_response(
     request: GetCourseRequest, response: GetCourseResponse, expected_course: Course
 ):
+    """Проверяет ID полученного курса и его соответствие ожидаемым данным.
+
+    Args:
+        request: Отправленный запрос на получение курса.
+        response: Ответ сервиса с полученным курсом.
+        expected_course: Ожидаемые данные курса.
+
+    Raises:
+        AssertionError: Если ID не совпадает с запрошенным или данные отличаются.
+    """
 
     assert_equal(response.course.id, request.id, "id")
     assert_course(response.course, expected_course)
@@ -64,6 +96,20 @@ def assert_list_courses_response(
     response: ListCoursesResponse,
     expected_courses: list[Course],
 ):
+    """Проверяет список курсов независимо от порядка элементов.
+
+    Проверяет количество курсов, уникальность ID в обоих списках, совпадение
+    наборов ID и данных курсов, а также ID создателя каждого полученного курса.
+
+    Args:
+        request: Запрос с идентификатором пользователя, чьи курсы ожидаются.
+        response: Ответ сервиса со списком курсов.
+        expected_courses: Ожидаемые курсы с уникальными идентификаторами.
+
+    Raises:
+        AssertionError: Если списки отличаются, содержат повторяющиеся ID
+            или ID создателя полученного курса не совпадает с request.user_id.
+    """
     assert len(response.courses) == len(expected_courses)
 
     actual_by_id = {course.id: course for course in response.courses}
@@ -86,6 +132,19 @@ def assert_list_courses_response(
 def assert_update_course_response(
     request: UpdateCourseRequest, response: GetCourseResponse, previous_course: Course
 ):
+    """Проверяет курс после применения полей запроса к его предыдущему состоянию.
+
+    Ожидаемый курс формируется из копии previous_course с заменой полей,
+    возвращённых request.ListFields(). Затем сравниваются protobuf-сообщения.
+
+    Args:
+        request: Отправленный запрос на обновление курса.
+        response: Ответ сервиса с обновлённым курсом.
+        previous_course: Данные курса до обновления.
+
+    Raises:
+        AssertionError: Если обновлённый курс отличается от ожидаемого.
+    """
     expected_course = Course()
     expected_course.CopyFrom(previous_course)
 
@@ -99,4 +158,12 @@ def assert_update_course_response(
     )
 
 def assert_delete_course_response(response: Empty):
+    """Проверяет тип Empty у ответа на удаление курса.
+
+    Args:
+        response: Ответ сервиса на запрос удаления курса.
+
+    Raises:
+        AssertionError: Если ответ не является экземпляром Empty.
+    """
     assert_is_empty(response, "response")
